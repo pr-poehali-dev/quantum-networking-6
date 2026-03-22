@@ -349,7 +349,7 @@ export default function HomePage() {
                 position: "relative",
                 zIndex: 50,
               }}>
-                Ты самый лучший котик в моей жизни 🐾
+                Ты самый лучший львёнок в моей жизни 🐾
               </p>
 
               <div className="flex gap-4 flex-wrap justify-center items-center" style={{ zIndex: 50, position: "relative" }}>
