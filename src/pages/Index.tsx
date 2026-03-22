@@ -250,7 +250,7 @@ export default function HomePage() {
                   textShadow: "0 2px 0 rgba(255,255,255,1), 0 4px 18px rgba(200,50,100,0.2)",
                   lineHeight: 1.25,
                 }}>
-                  Лисёнок, ты меня любишь?
+                  Львёнок, ты меня любишь?
                 </h1>
               </div>
 
