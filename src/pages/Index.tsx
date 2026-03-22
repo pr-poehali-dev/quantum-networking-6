@@ -250,7 +250,7 @@ export default function HomePage() {
                   textShadow: "0 2px 0 rgba(255,255,255,1), 0 4px 18px rgba(200,50,100,0.2)",
                   lineHeight: 1.25,
                 }}>
-                  Ты мною дорожишь?
+                  Лисёнок, ты меня любишь?
                 </h1>
               </div>
 
@@ -268,7 +268,7 @@ export default function HomePage() {
                     boxShadow: "0 0 28px rgba(200,50,100,0.45), 0 4px 14px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.35)",
                   }}
                 >
-                  Да 🐾
+                  Конечно же, да 🐾
                 </button>
 
                 {noCount < 8 && (
@@ -284,7 +284,7 @@ export default function HomePage() {
                       boxShadow: "0 2px 10px rgba(220,100,150,0.15)",
                     }}
                   >
-                    {noCount === 0 ? "Нет" : noCount < 3 ? "Нет..." : noCount < 6 ? "Ну нет 🙁" : "Точно нет?"}
+                    {noCount === 0 ? "Ну, может быть" : noCount < 3 ? "Может быть..." : noCount < 6 ? "Ну может 🙁" : "Точно может быть?"}
                   </button>
                 )}
               </div>
