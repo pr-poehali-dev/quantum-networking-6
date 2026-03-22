@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { OSOverlay } from "@/components/OSOverlay";
 
-// Три разных котика по одному
+// Котики одиночные + пары
 const CAT_IMGS = [
   "https://cdn.poehali.dev/projects/c5bbe236-1c46-486c-8e5e-972057289e8b/files/13aad504-b24f-455a-9c0f-6f690ddd4c36.jpg",
   "https://cdn.poehali.dev/projects/c5bbe236-1c46-486c-8e5e-972057289e8b/files/e304be7b-10b5-4d1c-afbd-1f1a91375f07.jpg",
   "https://cdn.poehali.dev/projects/c5bbe236-1c46-486c-8e5e-972057289e8b/files/3ebcb049-efd0-4548-bfd9-9c1be5c13fa2.jpg",
+  "https://cdn.poehali.dev/projects/c5bbe236-1c46-486c-8e5e-972057289e8b/files/bc40e8f8-0f7e-49a2-ae90-c2b5a0976fad.jpg",
+  // Пары
+  "https://cdn.poehali.dev/projects/c5bbe236-1c46-486c-8e5e-972057289e8b/files/e213a007-29f0-4e11-af93-54c606da0a08.jpg",
+  "https://cdn.poehali.dev/projects/c5bbe236-1c46-486c-8e5e-972057289e8b/files/ef0bac8a-2f9f-4178-a3f9-e970b2719692.jpg",
+  "https://cdn.poehali.dev/projects/c5bbe236-1c46-486c-8e5e-972057289e8b/files/34e45575-ba5d-43eb-879e-ea4f82adbe33.jpg",
 ];
 
 // Пиксельная клубника SVG
@@ -100,16 +105,20 @@ const BG_HEARTS = Array.from({ length: 12 }, (_, i) => ({
   delay: `${Math.random() * 4}s`,
 }));
 
-// Котики: по одному, разные картинки, без фигур, НА ЗАДНЕМ ПЛАНЕ (z-index < текста)
-const CHIBIS = Array.from({ length: 18 }, (_, i) => ({
-  id: i,
-  top: `${5 + Math.random() * 82}%`,
-  left: `${2 + Math.random() * 88}%`,
-  size: Math.round(56 + Math.random() * 44),
-  delay: `${Math.random() * 4}s`,
-  duration: `${3 + Math.random() * 2.5}s`,
-  img: CAT_IMGS[i % CAT_IMGS.length],
-}));
+// Котики: одиночки (0-3) мелкие, пары (4-6) крупнее
+const CHIBIS = Array.from({ length: 26 }, (_, i) => {
+  const imgIdx = i % CAT_IMGS.length;
+  const isPair = imgIdx >= 4;
+  return {
+    id: i,
+    top: `${5 + Math.random() * 82}%`,
+    left: `${2 + Math.random() * 88}%`,
+    size: Math.round(isPair ? 90 + Math.random() * 40 : 55 + Math.random() * 35),
+    delay: `${Math.random() * 4}s`,
+    duration: `${3 + Math.random() * 2.5}s`,
+    img: CAT_IMGS[imgIdx],
+  };
+});
 
 // Виджеты
 const WIDGETS = [
@@ -160,9 +169,8 @@ export default function HomePage() {
               style={{
                 width: "100%", height: "100%",
                 objectFit: "contain",
-                mixBlendMode: "multiply",
-                opacity: 0.88,
-                filter: "drop-shadow(0 3px 8px rgba(220,80,130,0.22))",
+                mixBlendMode: "darken",
+                filter: "drop-shadow(0 3px 10px rgba(220,80,130,0.28))",
               }}
             />
           </div>
@@ -306,8 +314,8 @@ export default function HomePage() {
                   <img src={cat.img} alt="" style={{
                     width: "100%", height: "100%",
                     objectFit: "contain",
-                    mixBlendMode: "multiply",
-                    filter: "drop-shadow(0 3px 8px rgba(220,80,130,0.25))",
+                    mixBlendMode: "darken",
+                    filter: "drop-shadow(0 3px 10px rgba(220,80,130,0.28))",
                   }} />
                 </div>
               ))}
