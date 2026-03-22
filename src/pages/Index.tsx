@@ -46,14 +46,14 @@ function PixelStar({ size = 12, color = "#ffcce0" }: { size?: number; color?: st
 }
 
 // Падающие лепестки сакуры
-const SAKURA_PETALS = Array.from({ length: 30 }, (_, i) => ({
+const SAKURA_PETALS = Array.from({ length: 55 }, (_, i) => ({
   id: i,
   left: `${Math.random() * 100}%`,
-  size: 10 + Math.random() * 14,
-  duration: `${5 + Math.random() * 5}s`,
-  delay: `${Math.random() * 7}s`,
-  color: ["#ffb7d5", "#ffc9df", "#ff8fab", "#ffd6e8", "#e8a0bf"][i % 5],
-  sway: Math.round(30 + Math.random() * 70),
+  size: 9 + Math.random() * 16,
+  duration: `${4 + Math.random() * 6}s`,
+  delay: `${Math.random() * 9}s`,
+  color: ["#ffb7d5", "#ffc9df", "#ff8fab", "#ffd6e8", "#e8a0bf", "#ffcce8", "#f9a8c9"][i % 7],
+  sway: Math.round(20 + Math.random() * 90),
 }));
 
 // Пиксельные сердечки на фоне
@@ -77,14 +77,25 @@ const BG_STARS = Array.from({ length: 16 }, (_, i) => ({
   delay: `${Math.random() * 5}s`,
 }));
 
+// Формы для котиков: 0=свободно, 1=сердечко clip-path, 2=скруглённый квадрат, 3=ромб
+const CAT_SHAPES = [
+  { borderRadius: "12px", clipPath: "none", transform: "" },
+  { borderRadius: "0", clipPath: "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)", transform: "" },
+  { borderRadius: "30% 70% 70% 30% / 30% 30% 70% 70%", clipPath: "none", transform: "" },
+  { borderRadius: "8px", clipPath: "none", transform: "rotate(8deg)" },
+  { borderRadius: "50% 50% 40% 40%", clipPath: "none", transform: "" },
+  { borderRadius: "16px", clipPath: "none", transform: "rotate(-6deg)" },
+];
+
 // Чиби-котики
-const CHIBIS = Array.from({ length: 14 }, (_, i) => ({
+const CHIBIS = Array.from({ length: 22 }, (_, i) => ({
   id: i,
-  top: `${8 + Math.random() * 78}%`,
-  left: `${4 + Math.random() * 88}%`,
-  size: Math.round(44 + Math.random() * 36),
+  top: `${6 + Math.random() * 82}%`,
+  left: `${3 + Math.random() * 89}%`,
+  size: Math.round(48 + Math.random() * 42),
   delay: `${Math.random() * 4}s`,
   duration: `${3 + Math.random() * 2.5}s`,
+  shape: CAT_SHAPES[i % CAT_SHAPES.length],
 }));
 
 // Виджеты
@@ -97,13 +108,14 @@ const WIDGETS = [
   { emoji: "🎀", label: "милашка", color: "rgba(255,210,230,0.92)", top: "75%", left: "80%" },
 ];
 
-const CELEB_CATS = Array.from({ length: 22 }, (_, i) => ({
+const CELEB_CATS = Array.from({ length: 28 }, (_, i) => ({
   id: i,
   top: `${Math.random() * 90}%`,
   left: `${Math.random() * 90}%`,
-  size: Math.round(40 + Math.random() * 34),
+  size: Math.round(44 + Math.random() * 38),
   delay: `${Math.random() * 0.8}s`,
   dur: `${1.2 + Math.random() * 0.8}s`,
+  shape: CAT_SHAPES[i % CAT_SHAPES.length],
 }));
 
 export default function HomePage() {
@@ -159,11 +171,12 @@ export default function HomePage() {
           </div>
         ))}
 
-        {/* Чиби-котики */}
+        {/* Чиби-котики в разных формах */}
         {CHIBIS.map((c) => (
           <div key={c.id} className="absolute select-none pointer-events-none z-10" style={{
             top: c.top, left: c.left, width: c.size, height: c.size,
             animation: `floatItem ${c.duration} ease-in-out ${c.delay} infinite alternate`,
+            transform: c.shape.transform || undefined,
           }}>
             <img
               src={CHIBI_CAT_IMG}
@@ -171,9 +184,10 @@ export default function HomePage() {
               style={{
                 width: "100%", height: "100%",
                 objectFit: "cover",
-                borderRadius: "50%",
-                opacity: 0.8,
-                filter: "drop-shadow(0 2px 6px rgba(220,80,130,0.25))",
+                borderRadius: c.shape.borderRadius,
+                clipPath: c.shape.clipPath !== "none" ? c.shape.clipPath : undefined,
+                opacity: 0.82,
+                filter: "drop-shadow(0 3px 8px rgba(220,80,130,0.3))",
               }}
             />
           </div>
@@ -276,8 +290,15 @@ export default function HomePage() {
                   width: cat.size, height: cat.size,
                   animation: `celebItem ${cat.dur} ease-out ${cat.delay} forwards`,
                   opacity: 0,
+                  transform: cat.shape.transform || undefined,
                 }}>
-                  <img src={CHIBI_CAT_IMG} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }} />
+                  <img src={CHIBI_CAT_IMG} alt="" style={{
+                    width: "100%", height: "100%",
+                    objectFit: "cover",
+                    borderRadius: cat.shape.borderRadius,
+                    clipPath: cat.shape.clipPath !== "none" ? cat.shape.clipPath : undefined,
+                    filter: "drop-shadow(0 3px 8px rgba(220,80,130,0.3))",
+                  }} />
                 </div>
               ))}
 
